@@ -71,6 +71,9 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                   onlast
                       ? GestureDetector(
                           onTap: () async {
+                            final k = await SharedPreferences.getInstance();
+
+
                             if (name != "") {
                               await SystemChannels.textInput
                                   .invokeMethod('TextInput.hide');

@@ -26,8 +26,8 @@ class _HomeState extends State<Home> {
 
   loadmodel() async {
     await Tflite.loadModel(
-      model: 'assets/images/model_unquant1.tflite',
-      labels: 'assets/images/labels1.txt',
+      model: 'assets/images/dest.tflite',
+      labels: 'assets/images/lab.txt',
     );
   }
 
@@ -111,15 +111,15 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             )
-                          :Text(
-                                  "re -s",
-                                  style: GoogleFonts.notoSansMono(
-                                      textStyle: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w800,
-                                    color: Color.fromARGB(255, 80, 212, 148),
-                                  )),
-                                ),
+                          : Text(
+                              "retake",
+                              style: GoogleFonts.notoSansMono(
+                                  textStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: Color.fromARGB(255, 80, 212, 148),
+                              )),
+                            ),
                     ])
                 ],
               )
@@ -191,14 +191,14 @@ class _HomeState extends State<Home> {
     }
   }
 }
-
-
-
-///this is starting of code 2
+// import 'dart:convert';
 // import 'dart:io';
 
+// import 'package:camera/camera.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:google_fonts/google_fonts.dart';
 // import 'package:image_picker/image_picker.dart';
 
 // class Home extends StatefulWidget {
@@ -209,7 +209,69 @@ class _HomeState extends State<Home> {
 // }
 
 // class _HomeState extends State<Home> {
+//   List<dynamic> _prediction = [];
+//   bool loading = false;
 //   File? imageFile;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//   }
+
+//   detectImage(File image) async {
+//     setState(() {
+//       loading = true;
+//     });
+
+//     final endpoint =
+//         'https://us-central1-aiplatform.googleapis.com/v1/projects/360479192085/locations/us-central1/endpoints/5640402291514146816:predict';
+//     final accessToken = await getAccessToken();
+
+//     final response = await http.post(
+//       Uri.parse(endpoint),
+//       headers: {
+//         HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+//         HttpHeaders.contentTypeHeader: 'application/json',
+//       },
+//       body: jsonEncode({
+//         'instances': [
+//           {'content': base64Encode(image.readAsBytesSync())}
+//         ],
+//         'parameters': {
+//           'confidenceThreshold': 0.5,
+//           'maxPredictions': 5,
+//         },
+//       }),
+//     );
+
+//     if (response.statusCode == 200) {
+//       final jsonResponse = jsonDecode(response.body);
+//       final predictions = jsonResponse['predictions'] ?? [];
+//       print(predictions);
+
+//       setState(() {
+//         loading = false;
+//         _prediction = predictions;
+//       });
+//     } else {
+//       setState(() {
+//         loading = false;
+//         _prediction = [];
+//       });
+//     }
+//   }
+
+//   Future<String> getAccessToken() async {
+//     // Implement your logic to retrieve the access token
+//     // For example, you can use the googleapis_auth package or authenticate with the Google Cloud SDK
+//     // and use the obtained access token here.
+//     return 'AIzaSyCLvuYJUTkIZe-JuZNe9nNlchyfY1ksNL0';
+//   }
+
+//   @override
+//   void dispose() {
+//     super.dispose();
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -228,23 +290,78 @@ class _HomeState extends State<Home> {
 //           mainAxisAlignment: MainAxisAlignment.center,
 //           children: [
 //             if (imageFile != null)
-//               Container(
-//                 width: 640,
-//                 height: 480,
-//                 alignment: Alignment.center,
-//                 decoration: BoxDecoration(
-//                   color: Colors.grey,
-//                   image: DecorationImage(
-//                       image: FileImage(imageFile!), fit: BoxFit.cover),
-//                   border: Border.all(
-//                       width: 8, color: Color.fromARGB(255, 154, 219, 154)),
-//                   borderRadius: BorderRadius.circular(12.0),
-//                 ),
+//               Column(
+//                 children: [
+//                   Container(
+//                     width: 640,
+//                     height: 480,
+//                     alignment: Alignment.center,
+//                     decoration: BoxDecoration(
+//                       color: Colors.grey,
+//                       image: DecorationImage(
+//                         image: FileImage(imageFile!),
+//                         fit: BoxFit.cover,
+//                       ),
+//                       border: Border.all(
+//                         width: 8,
+//                         color: Color.fromARGB(255, 154, 219, 154),
+//                       ),
+//                       borderRadius: BorderRadius.circular(12.0),
+//                     ),
+//                   ),
+//                   if (loading == true)
+//                     Column(
+//                       children: [
+//                         if (_prediction.isNotEmpty &&
+//                             _prediction[0]['label'] != null)
+//                           Column(
+//                             children: [
+//                               Text(
+//                                 'Material type: ' +
+//                                     _prediction[0]['label']
+//                                         .toString()
+//                                         .substring(2),
+//                                 style: GoogleFonts.notoSansMono(
+//                                   textStyle: TextStyle(
+//                                     fontSize: 15,
+//                                     fontWeight: FontWeight.w800,
+//                                     color: Color.fromARGB(255, 80, 212, 148),
+//                                   ),
+//                                 ),
+//                               ),
+//                               Text(
+//                                 'Confidence: ' +
+//                                     _prediction[0]['confidence'].toString(),
+//                                 style: GoogleFonts.notoSansMono(
+//                                   textStyle: TextStyle(
+//                                     fontSize: 15,
+//                                     fontWeight: FontWeight.w800,
+//                                     color: Color.fromARGB(255, 80, 212, 148),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ],
+//                           )
+//                         else
+//                           Text(
+//                             're -s',
+//                             style: GoogleFonts.notoSansMono(
+//                               textStyle: TextStyle(
+//                                 fontSize: 15,
+//                                 fontWeight: FontWeight.w800,
+//                                 color: Color.fromARGB(255, 80, 212, 148),
+//                               ),
+//                             ),
+//                           ),
+//                       ],
+//                     ),
+//                 ],
 //               )
 //             else
 //               ClipRRect(
-//                   borderRadius: BorderRadius.circular(15),
-//                   child: Image.asset('assets/images/15.png')),
+//                 borderRadius: BorderRadius.circular(15),
+//                 child: Image.asset('assets/images/15.png'),
+//               ),
 //             const SizedBox(
 //               height: 20,
 //             ),
@@ -252,41 +369,51 @@ class _HomeState extends State<Home> {
 //               children: [
 //                 Expanded(
 //                   child: ElevatedButton(
-//                       onPressed: () => getImage(source: ImageSource.camera),
-//                       style: ElevatedButton.styleFrom(
-//                           backgroundColor: Colors.green.shade50),
-//                       child: const Text('Capture Image',
-//                           style: TextStyle(fontSize: 18, color: Colors.green))),
+//                     onPressed: () => getImage(source: ImageSource.camera),
+//                     style: ElevatedButton.styleFrom(
+//                       backgroundColor: Colors.green.shade50,
+//                     ),
+//                     child: const Text(
+//                       'Capture Image',
+//                       style: TextStyle(fontSize: 18, color: Colors.green),
+//                     ),
+//                   ),
 //                 ),
 //                 const SizedBox(
 //                   width: 20,
 //                 ),
 //                 Expanded(
 //                   child: ElevatedButton(
-//                       style: ElevatedButton.styleFrom(
-//                           backgroundColor: Colors.green.shade50),
-//                       onPressed: () => getImage(source: ImageSource.gallery),
-//                       child: const Text('Select Image',
-//                           style: TextStyle(fontSize: 18, color: Colors.green))),
-//                 )
+//                     style: ElevatedButton.styleFrom(
+//                       backgroundColor: Colors.green.shade50,
+//                     ),
+//                     onPressed: () => getImage(source: ImageSource.gallery),
+//                     child: const Text(
+//                       'Select Image',
+//                       style: TextStyle(fontSize: 18, color: Colors.green),
+//                     ),
+//                   ),
+//                 ),
 //               ],
 //             ),
 //             SizedBox(
 //               height: 20,
 //             ),
 //             ElevatedButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     imageFile = null;
-//                   });
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                     backgroundColor: Colors.green[50],
-//                     padding: EdgeInsets.only(left: 50, right: 50)),
-//                 child: Text(
-//                   "reset",
-//                   style: TextStyle(color: Colors.green, fontSize: 20),
-//                 ))
+//               onPressed: () {
+//                 setState(() {
+//                   imageFile = null;
+//                 });
+//               },
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: Colors.green[50],
+//                 padding: EdgeInsets.only(left: 50, right: 50),
+//               ),
+//               child: Text(
+//                 'Reset',
+//                 style: TextStyle(color: Colors.green, fontSize: 20),
+//               ),
+//             ),
 //           ],
 //         ),
 //       ),
@@ -295,15 +422,16 @@ class _HomeState extends State<Home> {
 
 //   void getImage({required ImageSource source}) async {
 //     final file = await ImagePicker().pickImage(
-//         source: source,
-//         maxWidth: 640,
-//         maxHeight: 480,
-//         imageQuality: 100 //0 - 100
-//         );
+//       source: source,
+//       maxWidth: 640,
+//       maxHeight: 480,
+//       imageQuality: 100, // 0 - 100
+//     );
 
 //     if (file?.path != null) {
 //       setState(() {
 //         imageFile = File(file!.path);
+//         detectImage(imageFile!);
 //       });
 //     }
 //   }

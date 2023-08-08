@@ -81,7 +81,7 @@ class _homepageState extends State<homepage> {
                         onTap: () async {
                           final pref = await SharedPreferences.getInstance();
                           pref.setBool('showHome', false);
-                          name = "";
+
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
                             return onBoardingScreen();
@@ -141,11 +141,27 @@ class _homepageState extends State<homepage> {
                         ],
                         color: Colors.greenAccent[700]))),
           ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Text("Click to know more->",
+                style: GoogleFonts.notoSansMono(
+                    textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(2.0, 3.0),
+                            blurRadius: 3.0,
+                            color: Color.fromARGB(255, 197, 229, 204),
+                          ),
+                        ],
+                        color: Colors.greenAccent[700]))),
+          ),
           SizedBox(
-            height: 25,
+            height: 8,
           ),
           Container(
-            height: 240,
+            height: 220,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [

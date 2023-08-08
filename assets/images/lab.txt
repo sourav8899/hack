@@ -1,0 +1,7 @@
+0 clothes
+1 E-waste
+2 Glass
+3 Medical waste
+4 Metal
+5 Organic waste
+6 Plastic

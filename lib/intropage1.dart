@@ -33,7 +33,7 @@ class intropage1 extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 30),
             child: Container(
               child: Text(
                 "Snap, Detect ,Save",
@@ -49,6 +49,16 @@ class intropage1 extends StatelessWidget {
             padding: EdgeInsets.only(left: 40, right: 35, top: 20, bottom: 2),
             child: Text(
               "Team Members:Amiyanshu, Shreyashu, Shreyash, Sourav ",
+              style: GoogleFonts.notoSansMono(
+                  color: widgitcolor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, right: 35, top: 20, bottom: 2),
+            child: Text(
+              "Project Incharge: Dr. R Aparna ",
               style: GoogleFonts.notoSansMono(
                   color: widgitcolor,
                   fontWeight: FontWeight.w500,
