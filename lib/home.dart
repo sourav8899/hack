@@ -18,8 +18,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List _prediction = [];
-  List string = ['cloths', 'make', 'break', 'sake', 'take'];
-  int take=0;
+
+  List string = [
+    "Battery",
+    "Clothes",
+    "E-Waste",
+    "Glass",
+    "Medical",
+    "Metal",
+    "Organic",
+    "Paper",
+    "Plastic",
+    "please click again"
+  ];
+  int take = 0;
   bool loading = false;
   File? imageFile;
   void initState() {
@@ -100,8 +112,9 @@ class _HomeState extends State<Home> {
                                     color: Color.fromARGB(255, 80, 212, 148),
                                   )),
                                 ),
-                               Text(string[map[_prediction[0]['label']?.toString()] ?? 0]),
- 
+                                Text(string[
+                                    map[_prediction[0]['label']?.toString()] ??
+                                        0]),
                                 Text(
                                   "Confidence:" +
                                       _prediction[0]['confidence'].toString(),
