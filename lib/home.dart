@@ -7,6 +7,7 @@ import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hack/camera.dart';
 import 'package:image_picker/image_picker.dart';
+import 'mao.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,6 +18,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List _prediction = [];
+  List string = ['cloths', 'make', 'break', 'sake', 'take'];
+  int take=0;
   bool loading = false;
   File? imageFile;
   void initState() {
@@ -26,8 +29,8 @@ class _HomeState extends State<Home> {
 
   loadmodel() async {
     await Tflite.loadModel(
-      model: 'assets/images/dest.tflite',
-      labels: 'assets/images/lab.txt',
+      model: 'assets/images/g.tflite',
+      labels: 'assets/images/labels3.txt',
     );
   }
 
@@ -89,9 +92,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   "Materail type:" +
-                                      _prediction[0]['label']
-                                          .toString()
-                                          .substring(2),
+                                      _prediction[0]['label'].toString(),
                                   style: GoogleFonts.notoSansMono(
                                       textStyle: TextStyle(
                                     fontSize: 15,
@@ -99,6 +100,8 @@ class _HomeState extends State<Home> {
                                     color: Color.fromARGB(255, 80, 212, 148),
                                   )),
                                 ),
+                               Text(string[map[_prediction[0]['label']?.toString()] ?? 0]),
+ 
                                 Text(
                                   "Confidence:" +
                                       _prediction[0]['confidence'].toString(),
