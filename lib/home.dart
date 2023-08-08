@@ -104,7 +104,9 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   "Materail type:" +
-                                      _prediction[0]['label'].toString(),
+                                      string[map[_prediction[0]['label']
+                                              ?.toString()] ??
+                                          0],
                                   style: GoogleFonts.notoSansMono(
                                       textStyle: TextStyle(
                                     fontSize: 15,
@@ -112,9 +114,6 @@ class _HomeState extends State<Home> {
                                     color: Color.fromARGB(255, 80, 212, 148),
                                   )),
                                 ),
-                                Text(string[
-                                    map[_prediction[0]['label']?.toString()] ??
-                                        0]),
                                 Text(
                                   "Confidence:" +
                                       _prediction[0]['confidence'].toString(),
